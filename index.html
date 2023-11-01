@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  </head>
+
+  <body>
+    <div id="app">
+      <input type="number" v-model="num1" @input="calculateResult">
+      <select v-model="operator" @change="calculateResult">
+        <option value="+">+</option>
+        <option value="-">-</option>
+        <option value="*">*</option>
+        <option value="/">/</option>
+      </select>
+      <input type="number" v-model="num2" @input="calculateResult">
+      <p>Result: {{ result }}</p>
+    </div>
+
+    <script>
+      new Vue({
+        el: '#app',
+        data: {
+          num1: 0,
+          num2: 0,
+          operator: '+',
+          result: 0,
+        },
+        methods: {
+          calculateResult() {
+            if (this.operator === '+') {
+              this.result = parseFloat(this.num1) + parseFloat(this.num2);
+            } else if (this.operator === '-') {
+              this.result = parseFloat(this.num1) - parseFloat(this.num2);
+            } else if (this.operator === '*') {
+              this.result = parseFloat(this.num1) * parseFloat(this.num2);
+            } else if (this.operator === '/') {
+              if (parseFloat(this.num2) === 0) {
+                this.result = 'Error (Division by zero)';
+              } else {
+                this.result = parseFloat(this.num1) / parseFloat(this.num2);
+              }
+            }
+          },
+        },
+      });
+
+    </script>
+  </body>
+
+</html>
